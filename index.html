@@ -9,109 +9,146 @@
 <style>
   #map { display: inline-block; width: 58%; height: 100vh; vertical-align: top; }
   .sidebar { display: inline-block; width: 40%; height: 100vh; overflow-y: auto; vertical-align: top; }
-  .photo img { width: 100px; height: 70px; object-fit: cover; }
-  .card .name, .card .year { display: block; }
-  .hero img { height: 40px; }
-  .hero h1 { font-family: 'Comic Sans MS', 'Comic Sans', cursive; }
+  h1 { font-family: 'Comic Sans MS', 'Comic Sans', cursive; }
   .report-empty { font-style: italic; }
   .credits { font-style: italic; }
   .resultat { font-weight: bold; }
   .track { width: 150px; }
   .bar { height: 12px; }
-  .card.active { font-weight: bold; }
+  .active { font-weight: bold; }
 </style>
 </head>
 <body>
 <!-- Simulador del TDR: comparador de combustibles d'aviació (querosè i hidrogen) -->
 
-<aside class="sidebar">
-  <div class="sidebar-inner">
+<div class="sidebar">
 
-    <!-- Títol i presentació -->
-    <div class="block hero">
-      <h1><img src="data:image/png;base64,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" alt="">Comparador de combustibles d'aviació</h1>
-      <p>Estudi i viabilitat dels nous combustibles en aviació</p>
-      <p class="tagline">Bàsicament, volem saber si val la pena canviar de combustible... o no</p>
-      <span class="badge">Treball de Recerca de Batxillerat</span>
-    </div>
-
-    <!-- Selecció de l'avió: targetes + fitxa tècnica -->
-    <div class="block">
-      <label>Aeronau</label>
-      <div class="cards">
-        <button type="button" class="card active" id="card_A320" onclick="triarAvio('A320')">
-          <span class="photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/EC-ILS_Airbus_A3120-214_A320_-_IBE_(28410150205).jpg?width=640" alt="Airbus A320"></span>
-          <span class="name">Airbus A320</span>
-          <span class="year">1988</span>
-        </button>
-        <button type="button" class="card" id="card_B738" onclick="triarAvio('B738')">
-          <span class="photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Boeing_737-800_Ryanair_EI-DWO_EDFH.jpg?width=640" alt="Boeing 737-800"></span>
-          <span class="name">Boeing 737-800</span>
-          <span class="year">1998</span>
-        </button>
-        <button type="button" class="card" id="card_A359" onclick="triarAvio('A359')">
-          <span class="photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/EC-MXV_Airbus_A350-900_Iberia_LHR_30.3.21.jpg?width=640" alt="Airbus A350-900"></span>
-          <span class="name">Airbus A350-900</span>
-          <span class="year">2013</span>
-        </button>
-      </div>
-      <div class="spec-sheet" id="specSheet"></div>
-    </div>
-
-    <!-- Selecció d'origen, destí i combustible, i botó per executar -->
-    <div class="block">
-      <div class="field">
-        <label for="origen">Aeroport d'origen</label>
-        <select id="origen"></select>
-      </div>
-
-      <div class="field">
-        <label for="desti">Aeroport de destí</label>
-        <select id="desti"></select>
-      </div>
-
-      <div class="chips">
-        <div class="chip" id="chipOrigen"></div>
-        <div class="chip" id="chipDesti"></div>
-      </div>
-
-      <div class="field">
-        <label for="combustible">Tipus de combustible</label>
-        <select id="combustible">
-          <option value="JETA1">JET-A1 (querosè)</option>
-          <option value="LH2">LH2 (hidrogen)</option>
-        </select>
-      </div>
-
-      <button id="executar" class="btn" type="button">Executar vol</button>
-      <p class="status-line" id="statusLine">Tot a punt</p>
-      <p class="msg error" id="errorMsg"></p>
-      <p class="msg warn" id="warnMsg"></p>
-    </div>
-
-    <!-- Informe de resultats (buit fins que s'executa un vol) -->
-    <div class="block" id="reportBlock">
-      <div class="report-empty" id="reportEmpty">
-        Tria un avió i una ruta i prem Executar vol.<br>Els resultats surten aquí baix.
-      </div>
-      <div id="reportContent" style="display:none">
-        <table class="route-strip" id="routeStrip"></table>
-        <table class="report" id="reportTable"></table>
-        <div class="fuel-compare" id="fuelCompare"></div>
-      </div>
-    </div>
-
-    <!-- Crèdits dels autors del TDR -->
-    <div class="block">
-      <p class="credits">
-        Fet per Badr Regrag, Marcel Alonso i Mayan Sharma<br>
-        Treball de Recerca de Batxillerat<br>
-        2n Batxillerat
-      </p>
-    </div>
-
+  <!-- Títol i presentació -->
+  <div>
+    <h1><img src="data:image/png;base64,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" alt="" height="40">Comparador de combustibles d'aviació</h1>
+    <p>Estudi i viabilitat dels nous combustibles en aviació</p>
+    <p>Bàsicament, volem saber si val la pena canviar de combustible... o no</p>
+    <span>Treball de Recerca de Batxillerat</span>
   </div>
-</aside>
+
+  <!-- Selecció de l'avió: targetes + fitxa tècnica -->
+  <div>
+    <label>Aeronau</label>
+    <div>
+      <button class="active" id="card_A320" onclick="triarAvio('A320')">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/EC-ILS_Airbus_A3120-214_A320_-_IBE_(28410150205).jpg?width=640" alt="Airbus A320" width="100" height="70"><br>Airbus A320<br>1988
+      </button>
+      <button id="card_B738" onclick="triarAvio('B738')">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Boeing_737-800_Ryanair_EI-DWO_EDFH.jpg?width=640" alt="Boeing 737-800" width="100" height="70"><br>Boeing 737-800<br>1998
+      </button>
+      <button id="card_A359" onclick="triarAvio('A359')">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/EC-MXV_Airbus_A350-900_Iberia_LHR_30.3.21.jpg?width=640" alt="Airbus A350-900" width="100" height="70"><br>Airbus A350-900<br>2013
+      </button>
+    </div>
+    <div id="specSheet"></div>
+  </div>
+
+  <!-- Selecció d'origen, destí i combustible, i botó per executar -->
+  <div>
+    <div>
+      <label for="origen">Aeroport d'origen</label>
+      <select id="origen" onchange="actualitzarXips()">
+        <option value="">Tria un aeroport</option>
+        <optgroup label="Espanya">
+          <option value="BCN">Barcelona (BCN)</option>
+          <option value="MAD">Madrid (MAD)</option>
+          <option value="PMI">Palma (PMI)</option>
+          <option value="AGP">Màlaga (AGP)</option>
+          <option value="VLC">València (VLC)</option>
+          <option value="SVQ">Sevilla (SVQ)</option>
+          <option value="BIO">Bilbao (BIO)</option>
+          <option value="ALC">Alacant (ALC)</option>
+          <option value="IBZ">Eivissa (IBZ)</option>
+          <option value="LPA">Gran Canària (LPA)</option>
+          <option value="TFN">Tenerife (TFN)</option>
+        </optgroup>
+        <optgroup label="Regne Unit">
+          <option value="LHR">Londres-Heathrow (LHR)</option>
+        </optgroup>
+        <optgroup label="Alemanya">
+          <option value="FRA">Frankfurt (FRA)</option>
+        </optgroup>
+        <optgroup label="Japó">
+          <option value="HND">Tòquio-Haneda (HND)</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div>
+      <label for="desti">Aeroport de destí</label>
+      <select id="desti" onchange="actualitzarXips()">
+        <option value="">Tria un aeroport</option>
+        <optgroup label="Espanya">
+          <option value="BCN">Barcelona (BCN)</option>
+          <option value="MAD">Madrid (MAD)</option>
+          <option value="PMI">Palma (PMI)</option>
+          <option value="AGP">Màlaga (AGP)</option>
+          <option value="VLC">València (VLC)</option>
+          <option value="SVQ">Sevilla (SVQ)</option>
+          <option value="BIO">Bilbao (BIO)</option>
+          <option value="ALC">Alacant (ALC)</option>
+          <option value="IBZ">Eivissa (IBZ)</option>
+          <option value="LPA">Gran Canària (LPA)</option>
+          <option value="TFN">Tenerife (TFN)</option>
+        </optgroup>
+        <optgroup label="Regne Unit">
+          <option value="LHR">Londres-Heathrow (LHR)</option>
+        </optgroup>
+        <optgroup label="Alemanya">
+          <option value="FRA">Frankfurt (FRA)</option>
+        </optgroup>
+        <optgroup label="Japó">
+          <option value="HND">Tòquio-Haneda (HND)</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div>
+      <div id="chipOrigen"></div>
+      <div id="chipDesti"></div>
+    </div>
+
+    <div>
+      <label for="combustible">Tipus de combustible</label>
+      <select id="combustible">
+        <option value="JETA1">JET-A1 (querosè)</option>
+        <option value="LH2">LH2 (hidrogen)</option>
+      </select>
+    </div>
+
+    <button onclick="executarVol()">Executar vol</button>
+    <p id="statusLine">Tot a punt</p>
+    <p id="errorMsg"></p>
+    <p id="warnMsg"></p>
+  </div>
+
+  <!-- Informe de resultats (buit fins que s'executa un vol) -->
+  <div>
+    <div class="report-empty" id="reportEmpty">
+      Tria un avió i una ruta i prem Executar vol.<br>Els resultats surten aquí baix.
+    </div>
+    <div id="reportContent" style="display:none">
+      <table id="routeStrip"></table>
+      <table id="reportTable"></table>
+      <div id="fuelCompare"></div>
+    </div>
+  </div>
+
+  <!-- Crèdits dels autors del TDR -->
+  <div>
+    <p class="credits">
+      Fet per Badr Regrag, Marcel Alonso i Mayan Sharma<br>
+      Treball de Recerca de Batxillerat<br>
+      2n Batxillerat
+    </p>
+  </div>
+
+</div>
 
 <div id="map"></div>
 
@@ -140,42 +177,24 @@
     }
   };
 
-  // Els aeroports, per països
+  // Els aeroports. Els codis (BCN, MAD...) són els mateixos que hi ha als desplegables de l'HTML
 
-  const PAISOS = [
-    { nom:"Espanya", aeroports:{
-      BCN:{nom:"Barcelona", lat:41.2971, lon:2.0785},
-      MAD:{nom:"Madrid", lat:40.4936, lon:-3.5668},
-      PMI:{nom:"Palma", lat:39.5517, lon:2.7388},
-      AGP:{nom:"Màlaga", lat:36.6749, lon:-4.4991},
-      VLC:{nom:"València", lat:39.4893, lon:-0.4816},
-      SVQ:{nom:"Sevilla", lat:37.4180, lon:-5.8931},
-      BIO:{nom:"Bilbao", lat:43.3011, lon:-2.9106},
-      ALC:{nom:"Alacant", lat:38.2822, lon:-0.5582},
-      IBZ:{nom:"Eivissa", lat:38.8729, lon:1.3731},
-      LPA:{nom:"Gran Canària", lat:27.9319, lon:-15.3866},
-      TFN:{nom:"Tenerife", lat:28.4827, lon:-16.3415}
-    }},
-    { nom:"Regne Unit", aeroports:{
-      LHR:{nom:"Londres-Heathrow", lat:51.4700, lon:-0.4543}
-    }},
-    { nom:"Alemanya", aeroports:{
-      FRA:{nom:"Frankfurt", lat:50.0379, lon:8.5622}
-    }},
-    { nom:"Japó", aeroports:{
-      HND:{nom:"Tòquio-Haneda", lat:35.5494, lon:139.7798}
-    }}
-  ];
-
-  // Aquí posem tots els aeroports junts, per buscar-los pel codi (per exemple AEROPORTS["BCN"])
-  const AEROPORTS = {};
-  for (let p = 0; p < PAISOS.length; p++){
-    const pais = PAISOS[p];
-    for (const codi in pais.aeroports){
-      const ap = pais.aeroports[codi];
-      AEROPORTS[codi] = { codi:codi, nom:ap.nom, lat:ap.lat, lon:ap.lon, pais:pais.nom };
-    }
-  }
+  const AEROPORTS = {
+    BCN: { codi:"BCN", nom:"Barcelona",        pais:"Espanya",    lat:41.2971, lon:2.0785 },
+    MAD: { codi:"MAD", nom:"Madrid",           pais:"Espanya",    lat:40.4936, lon:-3.5668 },
+    PMI: { codi:"PMI", nom:"Palma",            pais:"Espanya",    lat:39.5517, lon:2.7388 },
+    AGP: { codi:"AGP", nom:"Màlaga",           pais:"Espanya",    lat:36.6749, lon:-4.4991 },
+    VLC: { codi:"VLC", nom:"València",         pais:"Espanya",    lat:39.4893, lon:-0.4816 },
+    SVQ: { codi:"SVQ", nom:"Sevilla",          pais:"Espanya",    lat:37.4180, lon:-5.8931 },
+    BIO: { codi:"BIO", nom:"Bilbao",           pais:"Espanya",    lat:43.3011, lon:-2.9106 },
+    ALC: { codi:"ALC", nom:"Alacant",          pais:"Espanya",    lat:38.2822, lon:-0.5582 },
+    IBZ: { codi:"IBZ", nom:"Eivissa",          pais:"Espanya",    lat:38.8729, lon:1.3731 },
+    LPA: { codi:"LPA", nom:"Gran Canària",     pais:"Espanya",    lat:27.9319, lon:-15.3866 },
+    TFN: { codi:"TFN", nom:"Tenerife",         pais:"Espanya",    lat:28.4827, lon:-16.3415 },
+    LHR: { codi:"LHR", nom:"Londres-Heathrow", pais:"Regne Unit", lat:51.4700, lon:-0.4543 },
+    FRA: { codi:"FRA", nom:"Frankfurt",        pais:"Alemanya",   lat:50.0379, lon:8.5622 },
+    HND: { codi:"HND", nom:"Tòquio-Haneda",    pais:"Japó",       lat:35.5494, lon:139.7798 }
+  };
 
   // Els combustibles
   // factorCO2: kg de CO2 per cada kg de combustible. preu: euros per kg. energia: MJ per kg.
@@ -226,11 +245,11 @@
 
   // Fa una fila de la taula amb el nom i el valor
   function filaDada(clau, valor){
-    return '<tr class="data"><td>' + clau + ':</td><td class="v">' + valor + '</td></tr>';
+    return '<tr><td>' + clau + ':</td><td>' + valor + '</td></tr>';
   }
 
   function filaSeccio(text){
-    return '<tr class="section"><td colspan="2">' + text + '</td></tr>';
+    return '<tr><td colspan="2">' + text + '</td></tr>';
   }
 
   // Els elements de la pàgina que farem servir
@@ -241,7 +260,6 @@
   const selCombustible = document.getElementById("combustible");
   const chipOrigen     = document.getElementById("chipOrigen");
   const chipDesti      = document.getElementById("chipDesti");
-  const btnExecutar    = document.getElementById("executar");
   const errorMsg       = document.getElementById("errorMsg");
   const warnMsg        = document.getElementById("warnMsg");
   const statusLine     = document.getElementById("statusLine");
@@ -259,10 +277,10 @@
   // Es crida quan es fa clic en una targeta de l'avió
   function triarAvio(codi){
     avioSeleccionat = codi;
-    document.getElementById("card_A320").className = "card";
-    document.getElementById("card_B738").className = "card";
-    document.getElementById("card_A359").className = "card";
-    document.getElementById("card_" + codi).className = "card active";
+    document.getElementById("card_A320").className = "";
+    document.getElementById("card_B738").className = "";
+    document.getElementById("card_A359").className = "";
+    document.getElementById("card_" + codi).className = "active";
     actualitzarFitxaTecnica();
   }
 
@@ -270,8 +288,8 @@
     const a = AVIONS[avioSeleccionat];
     const nusos = formatNum(a.velocitatKmh / KM_A_NUS, 1);
     specSheet.innerHTML =
-      '<div class="title">' + a.nom + '</div>' +
-      '<table class="spec">' +
+      '<div>' + a.nom + '</div>' +
+      '<table>' +
       filaDada("Any", a.any) +
       filaDada("Massa buida", formatNum(a.massaBuida, 0) + " kg") +
       filaDada("Capacitat", a.capacitat + " passatgers") +
@@ -281,45 +299,26 @@
       filaDada("Motor", a.motor) +
       filaDada("Empenta (per motor)", a.empenta + " kN") +
       '</table>' +
-      '<div class="spec-link"><a href="' + a.wiki + '" target="_blank" rel="noopener">Més info a la Viquipèdia</a></div>';
+      '<div><a href="' + a.wiki + '" target="_blank">Més info a la Viquipèdia</a></div>';
   }
 
-  // Omplir els desplegables d'aeroports
-
-  function omplirAeroports(select){
-    // La primera opció és buida perquè l'usuari hagi de triar l'aeroport
-    let html = '<option value="">Tria un aeroport</option>';
-    for (let p = 0; p < PAISOS.length; p++){
-      html = html + '<optgroup label="' + PAISOS[p].nom + '">';
-      for (const codi in PAISOS[p].aeroports){
-        const nomAeroport = PAISOS[p].aeroports[codi].nom;
-        html = html + '<option value="' + codi + '">' + nomAeroport + ' (' + codi + ')</option>';
-      }
-      html = html + '</optgroup>';
-    }
-    select.innerHTML = html;
-  }
-
-  // Els dos requadres amb el codi, la ciutat i el país (buits fins que es tria)
+  // Els dos requadres amb el codi, la ciutat i el país (buits fins que es tria).
+  // Es crida quan canviem un desplegable (onchange de l'HTML)
   function actualitzarXips(){
     if (selOrigen.value === ""){
       chipOrigen.innerHTML = "";
     } else {
       const o = AEROPORTS[selOrigen.value];
-      chipOrigen.innerHTML = '<div class="code">' + o.codi + '</div><div class="city">' + o.nom + '</div><div class="country">' + o.pais + '</div>';
+      chipOrigen.innerHTML = '<div>' + o.codi + '</div><div>' + o.nom + '</div><div>' + o.pais + '</div>';
     }
 
     if (selDesti.value === ""){
       chipDesti.innerHTML = "";
     } else {
       const d = AEROPORTS[selDesti.value];
-      chipDesti.innerHTML = '<div class="code">' + d.codi + '</div><div class="city">' + d.nom + '</div><div class="country">' + d.pais + '</div>';
+      chipDesti.innerHTML = '<div>' + d.codi + '</div><div>' + d.nom + '</div><div>' + d.pais + '</div>';
     }
   }
-
-  // Quan canviem un desplegable, canvien els requadres
-  selOrigen.addEventListener("change", actualitzarXips);
-  selDesti.addEventListener("change", actualitzarXips);
 
   // El mapa (Leaflet)
 
@@ -351,18 +350,18 @@
       color:color, weight:3, opacity:0.9, dashArray:"9,7"
     }).addTo(capaRuta);
 
-    // Busquem el punt del mig i cap a on mira l'avió.
-    // Fem servir la projecció del mapa perquè l'avió quedi just sobre la línia.
-    const punt1 = L.CRS.EPSG3857.project(L.latLng(origen.lat, origen.lon));
-    const punt2 = L.CRS.EPSG3857.project(L.latLng(desti.lat, desti.lon));
-    const mig = L.CRS.EPSG3857.unproject(L.point((punt1.x + punt2.x) / 2, (punt1.y + punt2.y) / 2));
-    const angle = Math.atan2(punt2.x - punt1.x, punt2.y - punt1.y) * 180 / Math.PI;
+    // El punt del mig és la mitjana de les dues latituds i de les dues longituds
+    const latMig = (origen.lat + desti.lat) / 2;
+    const lonMig = (origen.lon + desti.lon) / 2;
+
+    // L'angle perquè l'avió miri cap al destí (en graus)
+    const angle = Math.atan2(desti.lon - origen.lon, desti.lat - origen.lat) * 180 / Math.PI;
 
     // El dibuix de l'avió (un SVG), girat perquè miri cap al destí
     const dibuixAvio = '<svg viewBox="0 0 100 100" fill="' + color + '" width="24" height="24" style="transform:rotate(' + angle + 'deg)">' +
       '<path d="M50 5 L58 40 L92 55 L92 62 L58 52 L54 88 L68 96 L68 100 L50 94 L32 100 L32 96 L46 88 L42 52 L8 62 L8 55 L42 40 Z"/></svg>';
     const iconaAvio = L.divIcon({ className:"", html:dibuixAvio, iconSize:[24,24], iconAnchor:[12,12] });
-    L.marker(mig, { icon:iconaAvio, interactive:false }).addTo(capaRuta);
+    L.marker([latMig, lonMig], { icon:iconaAvio, interactive:false }).addTo(capaRuta);
 
     // Ajusta el zoom perquè es vegi tota la ruta
     mapa.fitBounds([[origen.lat, origen.lon], [desti.lat, desti.lon]], { padding:[70,60] });
@@ -373,9 +372,9 @@
   function generarInforme(d){
     routeStrip.innerHTML =
       '<tr>' +
-      '<td><span class="code">' + d.origen.codi + '</span><span class="city">' + d.origen.nom + '</span></td>' +
-      '<td class="mid">Distància<br>' + formatNum(d.distancia, 0) + ' km</td>' +
-      '<td class="dest"><span class="code">' + d.desti.codi + '</span><span class="city">' + d.desti.nom + '</span></td>' +
+      '<td>' + d.origen.codi + '<br>' + d.origen.nom + '</td>' +
+      '<td>Distància<br>' + formatNum(d.distancia, 0) + ' km</td>' +
+      '<td>' + d.desti.codi + '<br>' + d.desti.nom + '</td>' +
       '</tr>';
 
     const nusos = formatNum(d.avio.velocitatKmh / KM_A_NUS, 1);
@@ -393,9 +392,9 @@
       filaDada("Distància", formatNum(d.distancia, 1) + " km") +
       filaDada("Temps de vol", d.horesText) +
       filaSeccio("Resultats") +
-      '<tr class="resultat"><td>Consum de combustible:</td><td class="v">' + formatNum(d.consum, 1) + ' kg</td></tr>' +
-      '<tr class="resultat"><td>Emissions de CO2:</td><td class="v">' + formatNum(d.co2, 1) + ' kg</td></tr>' +
-      '<tr class="resultat"><td>Cost total del combustible:</td><td class="v">' + formatNum(d.cost, 2) + ' €</td></tr>';
+      '<tr class="resultat"><td>Consum de combustible:</td><td>' + formatNum(d.consum, 1) + ' kg</td></tr>' +
+      '<tr class="resultat"><td>Emissions de CO2:</td><td>' + formatNum(d.co2, 1) + ' kg</td></tr>' +
+      '<tr class="resultat"><td>Cost total del combustible:</td><td>' + formatNum(d.cost, 2) + ' €</td></tr>';
 
     // Comparem el CO2 del mateix vol amb querosè i amb hidrogen
     const co2Querose  = d.consumQuerose * COMBUSTIBLES.JETA1.factorCO2;
@@ -405,9 +404,9 @@
     const ampleHidrogen = (co2Hidrogen / co2Max) * 100;
 
     fuelCompare.innerHTML =
-      '<div class="title resultat">CO2: querosè vs hidrogen</div>' +
-      '<table class="fuel-row resultat"><tr><td class="label">JET-A1</td><td><div class="track"><div class="bar" style="width:' + ampleQuerose + '%; background:#ff6600"></div></div></td><td class="value">' + formatNum(co2Querose, 1) + ' kg</td></tr></table>' +
-      '<table class="fuel-row resultat"><tr><td class="label">LH2</td><td><div class="track"><div class="bar" style="width:' + ampleHidrogen + '%; background:#00ccff"></div></div></td><td class="value">' + formatNum(co2Hidrogen, 1) + ' kg</td></tr></table>';
+      '<div class="resultat">CO2: querosè vs hidrogen</div>' +
+      '<table class="resultat"><tr><td>JET-A1</td><td><div class="track"><div class="bar" style="width:' + ampleQuerose + '%; background:#ff6600"></div></div></td><td>' + formatNum(co2Querose, 1) + ' kg</td></tr></table>' +
+      '<table class="resultat"><tr><td>LH2</td><td><div class="track"><div class="bar" style="width:' + ampleHidrogen + '%; background:#00ccff"></div></div></td><td>' + formatNum(co2Hidrogen, 1) + ' kg</td></tr></table>';
 
     reportEmpty.style.display = "none";
     reportContent.style.display = "block";
@@ -415,7 +414,7 @@
 
   // Executar el vol
 
-  // Això passa quan es prem el botó "Executar vol"
+  // Això passa quan es prem el botó "Executar vol" (onclick de l'HTML)
   function executarVol(){
     errorMsg.textContent = "";
     warnMsg.textContent = "";
@@ -435,7 +434,7 @@
     }
 
     // Ara fem els càlculs, el mapa i l'informe
-    const avio       = AVIONS[avioSeleccionat];
+    const avio        = AVIONS[avioSeleccionat];
     const origen      = AEROPORTS[selOrigen.value];
     const desti       = AEROPORTS[selDesti.value];
     const combustible = COMBUSTIBLES[selCombustible.value];
@@ -480,12 +479,7 @@
     statusLine.textContent = "Fet!";
   }
 
-  btnExecutar.addEventListener("click", executarVol);
-
   // Al carregar la pàgina
-
-  omplirAeroports(selOrigen);
-  omplirAeroports(selDesti);
   actualitzarXips();
   actualitzarFitxaTecnica();
 </script>
